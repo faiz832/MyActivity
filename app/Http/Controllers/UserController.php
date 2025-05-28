@@ -23,7 +23,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required',
+        ]);
+        $data['password'] = bcrypt($data['password']);
+        $user = User::create($data);
+        return response(new UserResource($user), 201);
     }
 
     /**
@@ -31,7 +38,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return new UserResource($user);
     }
 
     /**
@@ -39,7 +46,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = $request->validated();
+        if(isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        $user->update($data);
+        return new UserResource($user);
     }
 
     /**
@@ -47,6 +59,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response('', 204);
     }
 }
