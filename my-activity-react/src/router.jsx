@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Users from "./pages/Users";
 import Dashboard from "./pages/Dashboard";
 import DashboardLayout from "./components/pages/DashboardLayout";
+import UserForm from "./pages/UserForm";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,14 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard/users",
                 element: <Users />,
+            },
+            {
+                path: "/dashboard/users/new",
+                element: <UserForm key="UserCreate" />,
+            },
+            {
+                path: "/dashboard/users/:id",
+                element: <UserForm key="UserUpdate" />,
             },
         ],
     },

@@ -7,7 +7,12 @@ import { Button } from "@/components/ui/button";
 export default function Users() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        getUsers();
+    }, []);
 
     const getUsers = () => {
         setLoading(true);
@@ -20,9 +25,11 @@ export default function Users() {
             .catch(() => setLoading(false));
     };
 
-    useEffect(() => {
-        getUsers();
-    }, []);
+    const onDelete = (user) => {
+        if (!window.confirm("Are you sure you want to delete this user?"))
+            return;
+        axiosClient.delete(`/users/${user.id}`).then(() => getUsers());
+    };
 
     return (
         <>
@@ -52,7 +59,7 @@ export default function Users() {
                             <td>{i + 1}</td>
                             <td>{user.name}</td>
                             <td>{user.email}</td>
-                            <td>
+                            <td className="py-2">
                                 <Button
                                     onClick={() =>
                                         navigate(`/users/${user.id}/edit`)
@@ -60,6 +67,12 @@ export default function Users() {
                                     className="cursor-pointer"
                                 >
                                     Edit
+                                </Button>
+                                <Button
+                                    onClick={() => onDelete(user)}
+                                    className="cursor-pointer"
+                                >
+                                    Delete
                                 </Button>
                             </td>
                         </tr>
