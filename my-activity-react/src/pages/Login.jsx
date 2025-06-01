@@ -8,7 +8,7 @@ export default function Login() {
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    const { setUser, setToken } = useStateContext();
+    const { token, setUser, setToken } = useStateContext();
 
     const submit = (e) => {
         e.preventDefault();
