@@ -37,7 +37,7 @@ const router = createBrowserRouter([
                 element: <UserForm key="UserCreate" />,
             },
             {
-                path: "/dashboard/users/:id",
+                path: "/dashboard/users/:id/edit",
                 element: <UserForm key="UserUpdate" />,
             },
         ],

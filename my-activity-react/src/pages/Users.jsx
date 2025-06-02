@@ -36,7 +36,7 @@ export default function Users() {
             <div className="mb-4">
                 <h1>Users</h1>
                 <Button
-                    onClick={() => navigate("/users/create")}
+                    onClick={() => navigate("/dashboard/users/new")}
                     className="cursor-pointer"
                 >
                     Add User
@@ -52,7 +52,7 @@ export default function Users() {
                         <th>Actions</th>
                     </tr>
                 </thead>
-                {loading && <p>Loading...</p>}
+                {loading && <div>Loading...</div>}
                 <tbody className="text-center">
                     {users.map((user, i) => (
                         <tr key={user.id}>
@@ -62,7 +62,9 @@ export default function Users() {
                             <td className="py-2">
                                 <Button
                                     onClick={() =>
-                                        navigate(`/users/${user.id}/edit`)
+                                        navigate(
+                                            `/dashboard/users/${user.id}/edit`
+                                        )
                                     }
                                     className="cursor-pointer"
                                 >
